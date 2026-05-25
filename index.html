@@ -54,15 +54,13 @@ async function startBLE(){
 
         const device =
         await navigator.bluetooth.requestDevice({
-            filters: [
-                { name: "LAKI_SIGNAL" }
-            ]
+            acceptAllDevices: true
         });
 
         document.body.style.background = "purple";
 
         document.getElementById("status").innerHTML =
-        "LAKI FOUND";
+        "LAKI FOUND: " + device.name;
 
         navigator.vibrate([300,200,300]);
 
