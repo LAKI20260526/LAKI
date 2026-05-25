@@ -31,6 +31,7 @@ button{
 #status{
     margin-top:50px;
     font-size:35px;
+    padding:20px;
 }
 
 </style>
@@ -59,7 +60,15 @@ async function startBLE(){
 
         const device =
         await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true
+
+            filters: [
+                {
+                    services: [
+                        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+                    ]
+                }
+            ]
+
         });
 
         document.body.style.background = "purple";
