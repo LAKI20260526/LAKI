@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LAKI</title>
+
+<style>
+
+body{
+    background:black;
+    color:white;
+    text-align:center;
+    font-family:Arial;
+    margin-top:100px;
+    transition:1s;
+}
+
+h1{
+    font-size:60px;
+}
+
+button{
+    font-size:30px;
+    padding:20px;
+    border:none;
+    border-radius:20px;
+}
+
+#status{
+    margin-top:50px;
+    font-size:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>LAKI</h1>
+
+<button onclick="startBLE()">
+START
+</button>
+
+<div id="status">
+WAITING...
+</div>
+
+<script>
+
+async function startBLE(){
+
+    try{
+
+        const device =
+        await navigator.bluetooth.requestDevice({
+            acceptAllDevices:true
+        });
+
+        document.body.style.background = "purple";
+
+        document.getElementById("status").innerHTML =
+        "LAKI FOUND";
+
+        navigator.vibrate([300,200,300]);
+
+    }
+
+    catch(error){
+
+        document.getElementById("status").innerHTML =
+        "CANCELLED";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
