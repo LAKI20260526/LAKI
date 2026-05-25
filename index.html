@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LAKI SIGNAL</title>
+<title>LAKI_SIGNAL</title>
 
 <style>
 
@@ -28,7 +28,8 @@ button{
 
 #status{
     margin-top:50px;
-    font-size:40px;
+    font-size:35px;
+    padding:20px;
 }
 
 </style>
@@ -36,7 +37,7 @@ button{
 
 <body>
 
-<h1>LAKI SIGNAL</h1>
+<h1>LAKI_SIGNAL</h1>
 
 <button onclick="startBLE()">
 START
@@ -52,15 +53,24 @@ async function startBLE(){
 
     try{
 
+        document.getElementById("status").innerHTML =
+        "SEARCHING...";
+
         const device =
         await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true
+
+            filters: [
+                { name: "LAKI_SIGNAL" }
+            ],
+
+            optionalServices: []
+
         });
 
         document.body.style.background = "purple";
 
         document.getElementById("status").innerHTML =
-        "LAKI FOUND: " + device.name;
+        "LAKI FOUND";
 
         navigator.vibrate([300,200,300]);
 
@@ -68,8 +78,10 @@ async function startBLE(){
 
     catch(error){
 
+        document.body.style.background = "darkred";
+
         document.getElementById("status").innerHTML =
-        "CANCELLED";
+        "ERROR : " + error;
 
     }
 
