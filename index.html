@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LAKI_SIGNAL</title>
 
 <style>
@@ -11,27 +9,19 @@
 body{
     background:black;
     color:white;
-    font-family:Arial;
     text-align:center;
+    font-family:Arial;
     margin-top:100px;
-    transition:1s;
-}
-
-h1{
-    font-size:55px;
 }
 
 button{
     font-size:30px;
-    padding:20px 40px;
-    border:none;
-    border-radius:20px;
+    padding:20px;
 }
 
 #status{
     margin-top:50px;
-    font-size:35px;
-    padding:20px;
+    font-size:30px;
 }
 
 </style>
@@ -55,20 +45,12 @@ async function startBLE(){
 
     try{
 
-        document.getElementById("status").innerHTML =
-        "SEARCHING...";
-
         const device =
         await navigator.bluetooth.requestDevice({
-
-            filters: [
-                {
-                    services: [
-                        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-                    ]
-                }
+            acceptAllDevices: true,
+            optionalServices: [
+              "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
             ]
-
         });
 
         document.body.style.background = "purple";
@@ -83,7 +65,7 @@ async function startBLE(){
         document.body.style.background = "darkred";
 
         document.getElementById("status").innerHTML =
-        "ERROR : " + error;
+        error;
 
     }
 
