@@ -1,93 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>LAKI_SIGNAL</title>
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLEAdvertising.h>
 
-<style>
+void setup() {
 
-body{
-    background:black;
-    color:white;
-    text-align:center;
-    font-family:Arial;
-    margin-top:100px;
-    transition:1s;
+  Serial.begin(115200);
+
+  delay(2000);
+
+  BLEDevice::init("LAKI_SIGNAL");
+
+  BLEServer *pServer = BLEDevice::createServer();
+
+  BLEAdvertising *pAdvertising =
+      BLEDevice::getAdvertising();
+
+  pAdvertising->setScanResponse(true);
+
+  pAdvertising->start();
+
+  Serial.println("LAKI_SIGNAL READY");
 }
 
-h1{
-    font-size:60px;
-}
-
-button{
-    font-size:30px;
-    padding:20px;
-    border:none;
-    border-radius:20px;
-}
-
-#status{
-    margin-top:50px;
-    font-size:35px;
-    padding:20px;
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>LAKI_SIGNAL</h1>
-
-<button onclick="startBLE()">
-START
-</button>
-
-<div id="status">
-WAITING...
-</div>
-
-<script>
-
-async function startBLE(){
-
-    try{
-
-        document.getElementById("status").innerHTML =
-        "SEARCHING...";
-
-        const device =
-        await navigator.bluetooth.requestDevice({
-
-            filters: [
-                { name: "LAKI_SIGNAL" }
-            ],
-
-            optionalServices: []
-
-        });
-
-        document.body.style.background = "purple";
-
-        document.getElementById("status").innerHTML =
-        "LAKI FOUND";
-
-        navigator.vibrate([300,200,300]);
-
-    }
-
-    catch(error){
-
-        document.body.style.background = "darkred";
-
-        document.getElementById("status").innerHTML =
-        "ERROR : " + error;
-
-    }
+void loop() {
 
 }
-
-</script>
-
-</body>
-</html>
